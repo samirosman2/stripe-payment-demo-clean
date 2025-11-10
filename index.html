@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Demo - German Market</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Unterstützen Sie unser Projekt</h1>
+        <p class="subtitle">Sichere Zahlung abgewickelt über Stripe</p>
+        
+        <form id="payment-form">
+            <div class="form-group">
+                <label for="amount">Betrag (€)</label>
+                <input type="number" id="amount" name="amount" min="5" max="1000" value="25" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-Mail</label>
+                <input type="email" id="email" name="email" placeholder="ihre@email.de" required>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Vollständiger Name</label>
+                <input type="text" id="name" name="name" placeholder="Max Mustermann" required>
+            </div>
+
+            <!-- Stripe Payment Element will be inserted here -->
+            <div id="payment-element"></div>
+
+            <button type="submit" id="submit-button">
+                <span id="button-text">Jetzt zahlen</span>
+                <span id="button-spinner" class="spinner hidden">⏳</span>
+            </button>
+
+            <div id="payment-message" class="hidden"></div>
+        </form>
+
+        <div class="payment-methods-info">
+            <p><strong>Unterstützte Zahlungsmethoden:</strong></p>
+            <div class="method-icons">
+                <span>💳 Kreditkarte</span>
+                <span>🏦 SEPA Lastschrift</span>
+                <span>🇩🇪 Giropay</span>
+                <span>⚡ SOFORT</span>
+                <span>🇦🇹 EPS</span>
+                <span>🇧🇪 Bancontact</span>
+            </div>
+        </div>
+
+        <div class="deployment-info">
+            <p>Live Demo - Stripe Integration</p>
+        </div>
+    </div>
+
+    <script src="client.js"></script>
+</body>
+</html>
