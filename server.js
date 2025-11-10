@@ -3,6 +3,10 @@ import Stripe from 'stripe';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,7 +14,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Use environment variable ONLY - no hardcoded key
+// Use environment variable - falls back to .env file
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 app.use(cors());
@@ -23,7 +27,8 @@ app.get('/health', (req, res) => {
     status: 'Server is running!', 
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'development',
-    port: PORT
+    port: PORT,
+    stripe_configured: !!process.env.STRIPE_SECRET_KEY
   });
 });
 
@@ -110,6 +115,7 @@ app.get('*', (req, res) => {
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🔑 Stripe configured: ${!!process.env.STRIPE_SECRET_KEY}`);
   console.log(`📊 Visit: http://localhost:${PORT}`);
   console.log(`❤️  Health check: http://localhost:${PORT}/health`);
   console.log(`🔧 Stripe test: http://localhost:${PORT}/test-stripe`);
